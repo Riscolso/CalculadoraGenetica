@@ -1,0 +1,48 @@
+FrontEnd... Pero como son servlets se hace en el backend xD
+	Index:
+		Al inicio la página solo muestra una caja de texto y un botón, cuando el usuario le puchurra, con javascript se generan 2 botones; "Cuadros individuales", "Cuadron completo", y 2n cantidad de combobox (n es el número que pone el usuario), donde cada uno de estos va a tener las posibles combinaciones de una letra mayúscula y minúscula, la cual aumenta con cada combox hasta n.
+		Ósea como en la imagen, si el usuario escribiera 3 saldría algo como:
+		Aa Bb Cc x Aa Bb Cc cada uno con sus respectivas combinaciones y así.
+		IMPORTANTE: Cada uno de los combobox debe tener un nombre incremental
+		Por ejemplo: cb1, cb2, cb3, cb4, etc, ya que se envían como parámetros al servlet
+
+	Cuadros individuales:
+		Se hace un carrusel con javascript, en donde van a esta cada uno de los cuadros que se generen de la cruza de los genes... ósea el número que dió el usuario y la probalidad de cada alelo. Cada tabla es de una letra desde la A, hasta la letra correspondiente a el número que se dió. Las columnas se llenan de acuerdo a los combobox, con la combinación de los genes. Por ejemplo en la imagen, los combobox tienen de valor |Aa| |Bb| x |Aa| |Bb|, entonces se pondrían las columnas "A", "a" (del genoma 2) y las filas "A", "a" (del genoma 1), el relleno de la tabla te lo da el método generarCruce(int n), donde n es el gen que se esta utilizando, en este caso el 1 por que es Aa.
+		Para la probabilidad de cada Alelo, no te preocupes, te lo da el método probabilidadAlelo(char c), donde c es la letra mayúscula o minúscula que se va mostrar.
+		Al final se muestra la probabilidad de cada una se las combinaciones que se pueden hacer con los genes dados, de ejemplo como esta en la imagenes
+		en los combobox se capturó |Aa| |Bb| x |Aa| |Bb|, esto significa que se pueden hacer 4 cruces entre esos genes: AB, Ab, aB y bb, entonces se imprimirían esas cuatro combinaciones demostrando de donde viene el valor final, algo como
+		"Probabilidad de AB: " probabilidadAlelo('A') + "*" + probabilidadAlelo('B') +"="+ probabilidadGenotipo("AB")
+		"Probabilidad de Ab: " probabilidadAlelo('A') + "*" + probabilidadAlelo('b') +"="+ probabilidadGenotipo("Ab")
+		"Probabilidad de aB: " probabilidadAlelo('a') + "*" + probabilidadAlelo('B') +"="+ probabilidadGenotipo("aB")
+		"Probabilidad de ab: " probabilidadAlelo('a') + "*" + probabilidadAlelo('b') +"="+ probabilidadGenotipo("ab")
+
+	Cuadro completo:
+		Casi lo mismo que la anterior, pero es una tablota donde las filas y columnas son los cruces de los genes, el relleno de la tabla te lo da el método generarCruce() y los valores de probabilidad te lo da el método de probabilidadGenotipo(String s), donde s es una cadena con una combinación de las que se pueden hacer de los genes, por ejemplo, como esta en la imagenes
+		en los combobox se campturó |Aa| |Bb| x |Aa| |Bb|, esto significa que se pueden hacer 4 cruces entre esos genes: AB, Ab, aB y bb, entonces se imprimirían esas cuatro combinaciones, para obtenerla se llama
+		probabilidadGenotipo("AB")
+		probabilidadGenotipo("Ab")
+		probabilidadGenotipo("aB")
+		probabilidadGenotipo("ab")
+
+
+BackEnd
+Como tal solo hay una clase aparte del servlet y va a así:
+	Atributos:
+		cantGenes: Es la cantidad de genes; la que escribió el usuario
+
+		genesA: es una lista de cadenas que contiene la info de los comboBox, tomando el ejemplo de la imagen de index, esta lista tendría el valor de {"Aa", "Bb"}
+
+		genesB: Lo mismo que la anterior, pero con lo que esté despues de la x, ósea los combobox que tengan de número cantGenes en adelante, en el ejemplo de la imagen de index serían cb3 y cb4, por lo tanto tendría el valor de {"Aa", "Bb"}
+
+	Métodos:
+		generarCruce(int n): genera una lista de combinaciones del cuadro de Punnett dado un número de gen, tomando el ejemplo de las imagenes:
+		Se tiene genesA = {"Aa","Bb"} y genesB = {"Aa","Bb"}
+		y de parámetro se da el número 2, entonces se devolvería una lista de la combinación entre Bb del genoma A y Bb del genoma B; ósea regresaría {"BB", "Bb", "bB", "bb"}.
+
+		generarCruce(): Hace lo mismo que la anterior, solo que toma en cuanta todos los genes de A y B, por ejemplo:
+		Se tiene genesA = {"Aa","Bb"} y genesB = {"Aa","Bb"} entonces se devolvería {"AABB", "AABd", "AaBB",.....} ósea todo lo que esta adentro de la tabla de la imagen cuadro completo
+
+		probabilidadAlelo(char c): Devuelve una probabilidad respecto a un alelo dado tomando en cuanta si el alelo es domante o no. Siguiendo con el ejemplo de las imagenes, si le da el parámetro "a", entonces usaría el método de generarCruce(1), el cual devolvería {"AA", "Aa", "aA", "aa"}, para finalmente regresar 1/4
+
+		probabilidadGenotipo(String s): Devuelve una probabilidad de obtener un genotipo respecto a una combinación de genes. Siguiendo con el ejemplo de las imagenes, se manda como parámetro un "AB", entonces regresaría la probabilidad del alelo A * la probabilidad del alelo B, esto sería (3/4)*(3/4) = 9/16
+
