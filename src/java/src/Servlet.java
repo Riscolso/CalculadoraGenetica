@@ -14,15 +14,18 @@ public class Servlet extends HttpServlet {
     throws ServletException, IOException {
         Pounnett p = new Pounnett();
         //Establecer la cantidad de genes 
-        p.setCantGenes(Integer.parseInt(request.getParameter("columnas")));
+        p.setCantGenes(Integer.parseInt(request.getParameter("n")));
         //Obtener los genes de A
-        for(int i=1;i<p.getCantGenes()+1;i++){
-            p.genesA.add(request.getParameter("cb"+i));
+        for(int i=0;i<p.getCantGenes();i++){
+            p.getGenesA().add(request.getParameter("cb"+i));
         }
         //Obtener los genes de B
-        for(int i=3;i<p.getCantGenes()+1;i++){
-            p.genesB.add(request.getParameter("cb"+i));
+        for(int i=p.getCantGenes();i<p.getCantGenes()*2;i++){
+            p.getGenesB().add(request.getParameter("cb"+i));
         }
+        System.out.println("Cantidad de genes "+p.getCantGenes());
+        System.out.println("Genes de A: "+p.genesA.subList(0, p.getGenesA().size()));
+        System.out.println("Genes de B: "+p.genesA.subList(0, p.getGenesB().size()));
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html>");

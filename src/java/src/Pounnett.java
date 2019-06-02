@@ -7,8 +7,22 @@ public class Pounnett {
     ArrayList<String> genesA = new ArrayList<String>();
     ArrayList<String> genesB = new ArrayList<String>();
     
+    /**
+     * Genera una lista de combinaciones del cuadro de Punnett dado un número de gen
+     * @param n Posición del gen de ambos genes de la cual se quiere la combinación.
+     * @return combinación de los genes de la posición dada.
+     */
     public ArrayList<String> generarCruce(int n){
-        return genesA;
+        ArrayList<String> aux = new ArrayList<String>();
+        char alelo1A = genesA.get(n).charAt(0);
+        char alelo2A = genesA.get(n).charAt(1);
+        char alelo1B = genesB.get(n).charAt(0);
+        char alelo2B = genesB.get(n).charAt(1);
+        aux.add(alelo1A+alelo1B+"");
+        aux.add(alelo1A+alelo2B+"");
+        aux.add(alelo2A+alelo1B+"");
+        aux.add(alelo2A+alelo2B+"");
+        return aux;
     }
     
     public ArrayList<String> generarCruce(){
