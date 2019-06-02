@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Pounnett {
     int cantGenes;
@@ -25,28 +26,37 @@ public class Pounnett {
         return aux;
     }
     
+    /**
+     * Genera una lista de combinaciones dado dos genes (como la multiplicación de binomio pues)
+     * @param n Posición del gen de ambos genes de la cual se quiere la combinación.
+     * @return combinación de los genes de la posición dada.
+     */
+    public ArrayList<String> generarCruce(ArrayList<String> a, String b){
+        ArrayList<String> aux = new ArrayList<String>();
+        for(String s : a){
+            aux.add(s+""+b.charAt(0));
+            aux.add(s+""+b.charAt(1));
+        }
+        return aux;
+    }
     
     /**
-     * Genera la combinación de todos los cruces de los genes A y B
+     * Genera la combinación de los genes (Como si estuvieras multiplicando polinomios) <br>
+     * n es el cantGenes
      * @return Lista con los cruces de los genes.
-     * @deprecated 
      */
     public ArrayList<String> generarCruce(){
-        int c = (int)Math.pow(2, cantGenes);
-        ArrayList<String> carac = new ArrayList<String>();
-        for(int i=0;i<cantGenes;i++){
-            carac.add((char)('A'+i)+"");
+        if(cantGenes == 1) return new ArrayList<>(Arrays.asList("A", "B", "a", "b"));
+        ArrayList<String> a1 = new ArrayList<>(Arrays.asList("AB", "Ab", "aB", "ab"));
+        if(cantGenes == 2) return a1;
+        char a = 'a';
+        char aux;
+        for(int i=2;i<cantGenes;i++){
+            aux = (char) (a+i);
+            String gen = Character.toUpperCase(aux)+""+aux;
+            a1 = generarCruce(a1,gen);
         }
-        for(int i=0;i<carac.size();i++){
-            String aux = carac.get(i);
-            for(int e=0;e<c/2;e++){
-                
-                
-            }
-            aux.toLowerCase();
-        }
-        
-        return genesA;
+        return a1;
     }
     
     /**

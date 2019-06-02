@@ -46,31 +46,18 @@ public class Servlet extends HttpServlet {
             ArrayList<String> c = p.generarCruce(i);
             for(int e=0;e<c.size();e++){
                 out.print(c.get(e)+" ");
-                if(e==p.getCantGenes()-1) out.println("<br>");
+                if(e==1) out.println("<br>");
             }
             out.println("<br>");
             out.print("Probabilidad de "+aux +" es :"+p.probabilidadAlelo(aux, i)+"<br>");
             out.print("Probabilidad de "+Character.toUpperCase(aux) +" es :"+p.probabilidadAlelo(Character.toUpperCase(aux),i));
         }
         out.print("<br><br>");
-        
-        /*Se deben mostrar las combinaciones de los genes, en el código temporal se muestra la combinación de cuando es Aa y Bb
-        Cuando son 3 genes por ejemplo, se debe mostrar la combinación de
-        "Probabilidad ABC :"
-        "Probabilidad ABc :"
-        "Probabilidad AbC :"
-        "Probabilidad aBC :"
-        "Probabilidad Abc :"
-        "Probabilidad abC :"
-        Y así.....
-        */
-        /*CÓDIGO TEMPORAL*/
-        out.print("Probabilidad AB :"+p.probabilidadGenotipo("AB")+"<br>");
-        out.print("Probabilidad Ab :"+p.probabilidadGenotipo("Ab")+"<br>");
-        out.print("Probabilidad aB :"+p.probabilidadGenotipo("aB")+"<br>");
-        out.print("Probabilidad ab :"+p.probabilidadGenotipo("ab")+"<br>");
-        /*CÓDIGO TEMPORAL*/
-        
+        out.print("Lista de cruces :"+p.generarCruce().subList(0, p.generarCruce().size()));
+        out.print("<br><br>");
+        for(String s: p.generarCruce()){
+            out.print("Probabilidad "+s+" :"+p.probabilidadGenotipo(s)+"<br>");
+        }
         out.println("</body>");
         out.println("</html>");
     }
