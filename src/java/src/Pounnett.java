@@ -2,11 +2,23 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * Clase relacionada con los cruces de Genes así como su probabilidad.
+ * @author Riscolso
+ */
 public class Pounnett {
-    int cantGenes;
-    ArrayList<String> genesA = new ArrayList<String>();
-    ArrayList<String> genesB = new ArrayList<String>();
+    /**
+     * Cantidad de genes
+     */
+    public int cantGenes;
+    /**
+     * Lista de genes de sujeto A
+     */
+    public ArrayList<String> genesA = new ArrayList<String>();
+    /**
+     * Lista de genes del sujeto B
+     */
+    public ArrayList<String> genesB = new ArrayList<String>();
     
     /**
      * Genera una lista de combinaciones del cuadro de Punnett dado un número de gen
@@ -27,8 +39,9 @@ public class Pounnett {
     }
     
     /**
-     * Genera una lista de combinaciones dado dos genes (como la multiplicación de binomio pues)
-     * @param n Posición del gen de ambos genes de la cual se quiere la combinación.
+     * Genera una lista de combinaciones dado una combinación de genes y un gen (como la multiplicación de binomio pues)
+     * @param a Genes de A
+     * @param b Gen de B
      * @return combinación de los genes de la posición dada.
      */
     public ArrayList<String> generarCruce(ArrayList<String> a, String b){
@@ -42,7 +55,6 @@ public class Pounnett {
     
     /**
      * Genera la combinación de los genes (Como si estuvieras multiplicando polinomios) <br>
-     * n es el cantGenes
      * @return Lista con los cruces de los genes.
      */
     public ArrayList<String> generarCruce(){
@@ -66,7 +78,7 @@ public class Pounnett {
      * @param g El cruce de los genes
      * @return Probabilidad del Alelo de ser heredado.
      */
-    float probabilidadAlelo(char c, int g){
+    public float probabilidadAlelo(char c, int g){
         float j=0;
         for(String s: generarCruce(g)){
             float p=0, r=0;
@@ -79,11 +91,11 @@ public class Pounnett {
     }
     /**
      * Devuelve una probabilidad de obtener un genotipo respecto a una combinación de genes.<br>
-     * Hace uso de la función {@link #probabilidadAlelo(char) }.
+     * Hace uso de la función {@link #probabilidadAlelo(char, int) }.
      * @param s Combinación de genes
      * @return probabilidad de obtener ese genotipo.
      */
-    float probabilidadGenotipo(String s){
+    public float probabilidadGenotipo(String s){
         float p=1;
         int i=0;
         for(char c:s.toCharArray()){
