@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style type="text/css">
+            body{background-color: orange;}
+            table{border: 7px;background-color: red; font-weight: bold;}
+            td{border:solid;}
+            #cabeza{color: brown;}
+            #enunciado{color: black;font-weight: bold;}
+            #div2{color: black;font-weight: bold;}
+            button{color: black;background-color: white;font-weight: bold;}
+        </style>
+        <script type="text/javascript">
+
+            function factorial(n){
+                if (n == 0){ 
+                   return 1; 
+                 }
+                return n * factorial (n-1);
+            }
+
+            function comb(n,r){
+                return factorial(n)/(factorial(r)*factorial(n-r));
+            }
+
+            function formula(n,a,r,v,x,y){
+                var tot=parseInt(a)+parseInt(r)+parseInt(v);
+                if((parseInt(x)+parseInt(y))>n){
+                    return 0;
+                }
+                else{
+                    var resultado= (comb(a,x)*comb(r,y)*comb(v,n-x-y))/comb(tot, n);
+                    
+                    return resultado.toFixed(2);
+                }
+                
+            }
+
+            function tabla() {
+                var r= document.getElementById("div3");
+                var rt= document.getElementById("tabla");
+                r.removeChild(rt);
+                var n= parseInt(prompt("Número de repuestos que se toman: "));
+                var azules= parseInt(prompt("Número de repuestos azules: "));
+                var rojos= parseInt(prompt("Número de repuestos rojos: "));
+                var verdes= parseInt(prompt("Número de repuestos verdes: "));
+                var suma= azules+rojos+verdes;
+                var lu= document.getElementById("l1");
+                var ld= document.getElementById("l2");
+                var lt= document.getElementById("l3");
+                var lc= document.getElementById("l4");
+                var nu= document.createTextNode(n);
+                var nd= document.createTextNode(azules);
+                var nt= document.createTextNode(rojos);
+                var nc= document.createTextNode(verdes);
+                lu.replaceChild(nu, lu.childNodes[0]);
+                ld.replaceChild(nd, ld.childNodes[0]);
+                lt.replaceChild(nt, lt.childNodes[0]);
+                lc.replaceChild(nc, lc.childNodes[0]);
+                var fxy=document.getElementById("formula");
+                var fxyn=document.createTextNode("(("+azules+"Cx)*("+rojos+"Cy)*("+verdes+"C"+n+"-x-y))/("+suma+"C"+n+")");
+                fxy.replaceChild(fxyn, fxy.childNodes[0]);
+                var d= document.getElementById("div3");
+                var t= document.createElement("table");
+                t.setAttribute("id","tabla");
+                d.appendChild(t);
+                for (var y = 0; y <= n; y++) {
+                    var f= document.createElement("tr");
+                    t.appendChild(f);
+                    for(var x=0; x<= n; x++){
+                        var res= formula(n,azules,rojos,verdes,x,y);
+                        var c= document.createElement("td");
+                        c.setAttribute("id",y+x);
+                        var num= document.createTextNode("f("+x+","+y+")= "+res);
+                        c.appendChild(num);
+                        f.appendChild(c);
+                    }
+                }
+             }
+
+             function inicio(){
+                var d= document.getElementById("div3");
+                var t= document.createElement("table");
+                t.setAttribute("id","tabla");
+                d.appendChild(t);
+                for (var y = 0; y <= 2; y++) {
+                    var f= document.createElement("tr");
+                    t.appendChild(f);
+                    for(var x=0; x<= 2; x++){
+                        var res= formula(2,3,2,3,x,y);
+                        //alert("f(x,y)= "+formula(n,azules,rojos,verdes,x,y));
+                        var c= document.createElement("td");
+                        var num= document.createTextNode("f("+x+","+y+")= "+res);
+                        c.appendChild(num);
+                        f.appendChild(c);
+                    }
+                }
+
+             }
+
+        </script>
+        <title>Distribución para varias variables aleatorias</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="inicio()">
+        <div id="cabeza">
+            <h1> Distribución de probabilidad conjunta para variables discretas</h1>
+            <h3> Ejemplo1. </h3>    
+        </div>
+        <div id="enunciado">
+                Se seleccionan al azar <label id="l1">2</label> repuestos por boligrafo
+                de una caja que contiene <label id="l2">3</label> repuestos azules, <label id="l3">2</label>
+                rojos y <label id="l4">3</label> verdes. Si X es el numero de repuestos azules, y Y el
+                numero de repuestos rojos.<br>
+                <button onClick="tabla()">Cambiar valores</button>
+        </div><br>
+        <div id="div2">
+            <label>La fórmula de probabilidad conjunta f(x,y) es: </label><br>
+            <label id="formula">((3Cx)*(2Cy)*(3C2-x-y))/(8C2)</label><br>
+            <label>Su tabla es:</label><br>       
+        </div><br>
+        <div id="div3">
+        </div>
+    </body>
+</html>
