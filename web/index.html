@@ -1,49 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
         <meta charset="UTF-8">
         <title>Cálculadora Genética</title>
-        <link href="css/estillo.css" rel="stylesheet" type="text/css"/>
+        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <script src="js/prin.js"></script>
+        
     </head>
     <body>
-        <h1>Cálculadora Genética</h1>
-        <!--<button onclick="mostrar('btncal');crearInput(2)">Generar</button>-->
-        <form action="Servlet" method="get">
-            Número de génes por cada padre <input type="text" name="n">
-            <select name="cb0" >
-                <option value="Aa">Aa</option>
-                <option value="AA">AA</option>
-                <option value="aa">aa</option>
-            </select>
-            <select name="cb1">
-                <option value="Bb">Bb</option>
-                <option value="BB">BB</option>
-                <option value="bb">bb</option>
-            </select>
-            <select name="cb2">
-                <option value="Cc">Cc</option>
-                <option value="CC">CC</option>
-                <option value="cc">cc</option>
-            </select>
-            X
-            <select name="cb3">
-                <option value="Aa">Aa</option>
-                <option value="AA">AA</option>
-                <option value="aa">aa</option>
-            </select>
-            <select name="cb4">
-                <option value="Bb">Bb</option>
-                <option value="BB">BB</option>
-                <option value="bb">bb</option>
-            </select>
-            <select name="cb5">
-                <option value="Cc">Cc</option>
-                <option value="CC">CC</option>
-                <option value="cc">cc</option>
-            </select>
-            <!--<br><input id="btncal" type="submit" value="Calcular" style="display:none"/>-->
-            <br><input id="btncal" type="submit" value="Calcular"/>
-        </form>
+        <div class="alert alert-primary">
+            <p><h1>Cálculadora Genética</h1> &nbsp;&nbsp;&nbsp;&nbsp; <h4>Para ver el Recurso educativo clik</h4> <a href="Distrobucionaleatoria.html">aquí</a> </p>
+            <button onclick="mostrar('btncal');crearInput()">Generar</button>
+
+            <form action="Servlet" method="get" id="formulario">
+                Número de génes por cada padre <input type="text" name="n" id="txt1">
+                <div id="genes" ></div>
+                <br><input id="btncal" type="submit" value="Calcular" style="display:none"/>
+            </form>
+        </div>
     </body>
 </html>

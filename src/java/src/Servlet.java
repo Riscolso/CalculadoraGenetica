@@ -33,34 +33,48 @@ public class Servlet extends HttpServlet {
         out.println("<html>");
         out.println("<head>");
         out.println("<title>Servlet</title>");            
+        out.println("<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" crossorigin=\"anonymous\">");            
+        out.println("<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" crossorigin=\"anonymous\"></script>");
+        out.println("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" crossorigin=\"anonymous\"></script>");
+        out.println("<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
         out.println("</head>");
         out.println("<body>");
+        out.println("<div class=\"alert alert-primary\" class = 'rounded'>");
         out.println("Cantidad de genes "+p.getCantGenes());
         out.println("<br>");
         out.println("Genes de A: "+p.genesA.subList(0, p.getGenesA().size()));
         out.println("<br>");
         out.println("Genes de B: "+p.genesB.subList(0, p.getGenesB().size()));
+        out.println("</div>");
         char a = 'a';
         char aux;
+        
         for(int i=0;i<p.getCantGenes();i++){
             aux = (char) (a+i);
-            out.println("<br><br>");
+            out.println("<div class=\"alert alert-dark\" class = 'rounded'>");
             out.println("Cuadro "+i+"<br>");
+            out.println("</div>");
+            out.println("<table class='table table-sm'>");
             ArrayList<String> c = p.generarCruce(i);
+            out.println("<tr>");
             for(int e=0;e<c.size();e++){
-                out.print(c.get(e)+" ");
-                if(e==1) out.println("<br>");
+                out.print("<td>"+c.get(e)+"</td>");
+                if(e==1) out.println("</tr>");
             }
+            out.println("</table>");
             out.println("<br>");
             out.print("Probabilidad de "+aux +" es :"+p.probabilidadAlelo(aux, i)+"<br>");
-            out.print("Probabilidad de "+Character.toUpperCase(aux) +" es :"+p.probabilidadAlelo(Character.toUpperCase(aux),i));
+            out.print("Probabilidad de "+Character.toUpperCase(aux) +" es :"+p.probabilidadAlelo(Character.toUpperCase(aux),i)+"<br><br>");
         }
+        
         out.print("<br><br>");
-        out.print("Lista de cruces :"+p.generarCruce().subList(0, p.generarCruce().size()));
+        out.print("<div class='alert alert-primary'> Lista de cruces :"+p.generarCruce().subList(0, p.generarCruce().size())+"</div>");
         out.print("<br><br>");
+        out.print("<table class='table table-sm'>");
         for(String s: p.generarCruce()){
-            out.print("Probabilidad "+s+" :"+p.probabilidadGenotipo(s)+"<br>");
+            out.print("<tr><td>Probabilidad "+s+" :"+p.probabilidadGenotipo(s)+"</tr></td>");
         }
+        out.println("</table>");
         out.println("</body>");
         out.println("</html>");
     }
